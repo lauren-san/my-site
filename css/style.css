@@ -316,6 +316,51 @@ body {
   line-height: 1.18;
 }
 
+.magazine-name {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  align-items: flex-end;
+  line-height: 1;
+  padding-bottom: 0.12em;
+}
+
+.magazine-name span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0.78em;
+  padding: 0.08em 0.2em;
+  border: 2px solid rgba(90, 74, 74, 0.15);
+  border-radius: 0.12em;
+  box-shadow: 1px 2px 0 rgba(90, 74, 74, 0.18);
+  background: #fff;
+  color: #5a4a4a;
+  text-transform: uppercase;
+}
+
+.magazine-name .letter-gap {
+  min-width: 0.42em;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.magazine-name span:nth-child(1) { font-family: Georgia, serif; background: #ffe8f2; transform: rotate(-6deg) translateY(-2px); }
+.magazine-name span:nth-child(2) { font-family: "Trebuchet MS", sans-serif; background: #fff2f8; transform: rotate(4deg); }
+.magazine-name span:nth-child(3) { font-family: "Courier New", monospace; background: #fff; transform: rotate(-3deg) translateY(1px); }
+.magazine-name span:nth-child(4) { font-family: Impact, "Arial Black", sans-serif; background: #ffe1ef; transform: rotate(5deg) translateY(-1px); }
+.magazine-name span:nth-child(5) { font-family: "Palatino Linotype", serif; background: #fff7fb; transform: rotate(-4deg); }
+.magazine-name span:nth-child(6) { font-family: Verdana, sans-serif; background: #ffdceb; transform: rotate(3deg) translateY(-2px); }
+.magazine-name span:nth-child(8) { font-family: Georgia, serif; background: #ffe8f2; transform: rotate(-5deg); }
+.magazine-name span:nth-child(9) { font-family: "Gill Sans", "Trebuchet MS", sans-serif; background: #fff2f8; transform: rotate(4deg) translateY(1px); }
+.magazine-name span:nth-child(10) { font-family: "Courier New", monospace; background: #fff; transform: rotate(-2deg); }
+.magazine-name span:nth-child(11) { font-family: Impact, "Arial Black", sans-serif; background: #ffe1ef; transform: rotate(6deg) translateY(-1px); }
+.magazine-name span:nth-child(12) { font-family: "Palatino Linotype", serif; background: #fff7fb; transform: rotate(-4deg) translateY(2px); }
+.magazine-name span:nth-child(13) { font-family: Verdana, sans-serif; background: #ffdceb; transform: rotate(3deg); }
+
 .name-section .typing-headline {
   display: inline-block;
   overflow: hidden;
@@ -1157,6 +1202,11 @@ h1 {
 
   .cta-section h2 {
     font-size: 1.6rem;
+  }
+
+  .magazine-name {
+    gap: 0.2rem;
+    font-size: 2.25rem;
   }
 }
 
