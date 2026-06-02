@@ -161,6 +161,38 @@ body {
   margin-bottom: 24px;
 }
 
+.photo-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.photo-wrap::before,
+.photo-wrap::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.photo-wrap::before {
+  width: 250px;
+  height: 250px;
+  top: -15px;
+  left: -15px;
+  border: 3px dashed rgba(255, 107, 157, 0.65);
+  animation: burst-ring 700ms ease-out 80ms forwards;
+}
+
+.photo-wrap::after {
+  width: 280px;
+  height: 280px;
+  top: -30px;
+  left: -30px;
+  background: radial-gradient(circle, rgba(255, 107, 157, 0.22) 0%, rgba(255, 107, 157, 0) 68%);
+  animation: burst-glow 800ms ease-out 80ms forwards;
+}
+
 .profile-photo {
   width: 220px;
   height: 220px;
@@ -169,6 +201,9 @@ body {
   border: 3px solid var(--accent-pink);
   box-shadow: 0 8px 24px rgba(162, 107, 137, 0.3), 4px 4px 0 rgba(255, 107, 157, 0.2);
   flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0.75);
+  animation: photo-pop 650ms cubic-bezier(0.17, 0.89, 0.32, 1.28) 120ms forwards;
 }
 
 .name-section div {
@@ -188,6 +223,15 @@ body {
   line-height: 1;
 }
 
+.typing-headline {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  border-right: 3px solid var(--accent-pink-dark);
+  animation: typing 1.7s steps(13, end) 380ms forwards, blink-caret 700ms step-end 380ms 3, hide-caret 1ms linear 2.08s forwards;
+}
+
 .eyebrow {
   margin: 0 0 18px;
   color: var(--accent-pink);
@@ -202,6 +246,83 @@ h1 {
   font-size: clamp(3rem, 4vw, 4.8rem);
   line-height: 0.98;
   letter-spacing: -0.04em;
+}
+
+@keyframes photo-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+
+  70% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes burst-ring {
+  0% {
+    opacity: 0;
+    transform: scale(0.35) rotate(-18deg);
+  }
+
+  40% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.1) rotate(8deg);
+  }
+}
+
+@keyframes burst-glow {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  35% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 13ch;
+  }
+}
+
+@keyframes blink-caret {
+  0%,
+  100% {
+    border-right-color: transparent;
+  }
+
+  50% {
+    border-right-color: var(--accent-pink-dark);
+  }
+}
+
+@keyframes hide-caret {
+  to {
+    border-right-width: 0;
+    border-right-color: transparent;
+  }
 }
 
 .intro {
@@ -911,5 +1032,18 @@ h1 {
 
   .cta-section h2 {
     font-size: 1.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-wrap::before,
+  .photo-wrap::after,
+  .profile-photo,
+  .typing-headline {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    width: auto;
+    border-right: 0;
   }
 }
