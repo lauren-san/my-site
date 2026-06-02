@@ -44,33 +44,28 @@ body {
     60px  170px,
     180px 50px,
     0     0;
-  animation: dots-a 22s linear infinite, dots-b 30s linear infinite, dots-c 18s linear infinite, dots-d 26s linear infinite;
+  animation: dots-move 24s linear infinite;
   color: var(--text);
   line-height: 1.6;
 }
 
-@keyframes dots-a {
-  /* layer 1 — drifts right + down */
-  0%   { background-position: 0 0,     100px 100px, 60px 170px, 180px 50px, 0 0; }
-  100% { background-position: 200px 200px, 100px 100px, 60px 170px, 180px 50px, 0 0; }
-}
-
-@keyframes dots-b {
-  /* layer 2 — drifts left + up */
-  0%   { background-position: 0 0, 100px 100px,   60px 170px, 180px 50px, 0 0; }
-  100% { background-position: 0 0, -180px -180px, 60px 170px, 180px 50px, 0 0; }
-}
-
-@keyframes dots-c {
-  /* layer 3 — drifts diagonally up-right */
-  0%   { background-position: 0 0, 100px 100px, 60px   170px, 180px 50px, 0 0; }
-  100% { background-position: 0 0, 100px 100px, 410px -180px, 180px 50px, 0 0; }
-}
-
-@keyframes dots-d {
-  /* layer 4 — drifts diagonally down-left */
-  0%   { background-position: 0 0, 100px 100px, 60px 170px, 180px  50px, 0 0; }
-  100% { background-position: 0 0, 100px 100px, 60px 170px, -60px 290px, 0 0; }
+@keyframes dots-move {
+  0% {
+    background-position:
+      0px    0px,
+      100px  100px,
+      60px   170px,
+      180px  50px,
+      0 0;
+  }
+  100% {
+    background-position:
+      200px  200px,   /* layer 1: right + down */
+      -80px  20px,    /* layer 2: left + slight down */
+      350px -180px,   /* layer 3: right + up */
+      -60px  290px,   /* layer 4: left + down */
+      0 0;
+  }
 }
 
 /* Scroll reveal */
