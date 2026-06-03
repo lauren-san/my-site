@@ -125,6 +125,68 @@
       position: relative;
     }
 
+    .monorail-announcement {
+      max-width: 1080px;
+      margin: 0 auto 12px;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      text-align: center;
+    }
+
+    .monorail-announcement-text {
+      margin: 0;
+      color: var(--accent-pink);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+    }
+
+    .monorail-sound-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 6px 0 10px;
+      appearance: none;
+      border: none;
+      background: linear-gradient(135deg, var(--accent-pink), #ff8ab3);
+      color: #ffffff;
+      border-radius: 999px;
+      padding: 14px 24px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(255, 107, 157, 0.25);
+    }
+
+    .monorail-sound-button svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+      fill: currentColor;
+      flex: 0 0 auto;
+    }
+
+    .monorail-sound-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .monorail-sound-button:active {
+      transform: translateY(0);
+    }
+
+    .monorail-player {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .monorail-sky {
       position: relative;
       height: 118px;
@@ -199,6 +261,10 @@
     }
 
     @media (max-width: 760px) {
+      .monorail-announcement {
+        padding: 0 18px;
+      }
+
       .monorail-sky {
         height: 102px;
       }
@@ -304,6 +370,16 @@
     </section>
 
     <section class="monorail-wrap reveal" aria-hidden="true">
+      <div class="monorail-announcement" aria-hidden="false">
+        <p class="monorail-announcement-text">Please stand clear of the doors. Por favor, mantenganse alejados de las puertas!</p>
+        <button type="button" id="monorailSoundButton" class="monorail-sound-button">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M3 10v4h4l5 4V6L7 10H3zm13.5 2a4.5 4.5 0 0 0-2.5-4.03v8.06A4.5 4.5 0 0 0 16.5 12zm0-9.5v2.06A9 9 0 0 1 22 12a9 9 0 0 1-5.5 8.31v2.06A11 11 0 0 0 24 12 11 11 0 0 0 16.5 2.5z"></path>
+          </svg>
+          <span>Play Door Chime</span>
+        </button>
+        <div id="monorailPlayer" class="monorail-player" aria-hidden="true"></div>
+      </div>
       <div class="monorail-sky">
         <div class="monorail-track"></div>
         <div class="monorail-pillars"></div>
@@ -386,6 +462,87 @@
   const waitToyStoryManiaEl = document.getElementById('waitToyStoryMania');
   const waitBigThunderEl = document.getElementById('waitBigThunder');
   const rideWaitsNoteEl = document.getElementById('rideWaitsNote');
+  const monorailSoundButtonEl = document.getElementById('monorailSoundButton');
+
+  const monorailAudioStartSeconds = 4;
+  const monorailAudioEndSeconds = 10;
+  let monorailPlayer = null;
+  let monorailStopInterval = null;
+
+  function ensureMonorailPlayerReady() {
+    return new Promise((resolve, reject) => {
+      if (window.YT && window.YT.Player && monorailPlayer) {
+        resolve(monorailPlayer);
+        return;
+      }
+
+      const existingScript = document.getElementById('youtubeIframeApi');
+      if (!existingScript) {
+        const tag = document.createElement('script');
+        tag.id = 'youtubeIframeApi';
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(tag);
+      }
+
+      const previousReady = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = function onYouTubeIframeAPIReadyWrapped() {
+        if (typeof previousReady === 'function') previousReady();
+
+        monorailPlayer = new window.YT.Player('monorailPlayer', {
+          height: '1',
+          width: '1',
+          videoId: 'bX8oYEol6ro',
+          playerVars: {
+            autoplay: 0,
+            controls: 0,
+            rel: 0,
+            playsinline: 1,
+            start: monorailAudioStartSeconds,
+            end: monorailAudioEndSeconds
+          },
+          events: {
+            onReady: () => resolve(monorailPlayer),
+            onError: () => reject(new Error('YouTube player error'))
+          }
+        });
+      };
+
+      if (window.YT && window.YT.Player) {
+        window.onYouTubeIframeAPIReady();
+      }
+    });
+  }
+
+  async function playMonorailClip() {
+    try {
+      const player = await ensureMonorailPlayerReady();
+      if (!player || typeof player.seekTo !== 'function') return;
+
+      if (monorailStopInterval) {
+        clearInterval(monorailStopInterval);
+        monorailStopInterval = null;
+      }
+
+      player.seekTo(monorailAudioStartSeconds, true);
+      player.playVideo();
+
+      monorailStopInterval = window.setInterval(() => {
+        const currentTime = player.getCurrentTime && player.getCurrentTime();
+        if (typeof currentTime === 'number' && currentTime >= monorailAudioEndSeconds) {
+          player.pauseVideo();
+          player.seekTo(monorailAudioStartSeconds, true);
+          clearInterval(monorailStopInterval);
+          monorailStopInterval = null;
+        }
+      }, 120);
+    } catch (error) {
+      window.open('https://www.youtube.com/watch?v=bX8oYEol6ro&t=4s', '_blank', 'noopener');
+    }
+  }
+
+  if (monorailSoundButtonEl) {
+    monorailSoundButtonEl.addEventListener('click', playMonorailClip);
+  }
 
   function pinkWeatherIcon(iconName) {
     const stroke = '#ff6b9d';
