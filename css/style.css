@@ -782,6 +782,7 @@ h1 {
   text-align: center;
   box-shadow: 0 8px 24px rgba(162, 107, 137, 0.2), 4px 4px 0 rgba(255, 107, 157, 0.15);
   position: relative;
+  overflow: visible;
 }
 
 .footer-panel::before {
@@ -800,6 +801,239 @@ h1 {
   margin: 0 0 24px;
   font-size: 1.1rem;
   color: var(--text);
+}
+
+.footer-panel .button {
+  position: relative;
+  z-index: 2;
+}
+
+.flip-phone {
+  position: absolute;
+  left: 205px;
+  bottom: 10px;
+  width: 70px;
+  height: 168px;
+  pointer-events: auto;
+  transform: rotate(-7deg);
+  transform-origin: center bottom;
+  z-index: 1;
+}
+
+.flip-phone::before {
+  content: none;
+}
+
+.flip-phone::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 68px;
+  height: 8px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ff9cc8 0%, #f779b0 100%);
+  border: 1px solid rgba(232, 109, 167, 0.5);
+}
+
+.flip-phone-top,
+.flip-phone-bottom {
+  position: absolute;
+  left: 0;
+  width: 70px;
+  border: 2px solid rgba(228, 96, 158, 0.75);
+  background: linear-gradient(160deg, #f9c4e4 0%, #f3a8d4 70%, #ee98cb 100%);
+  box-shadow: 0 6px 14px rgba(153, 66, 108, 0.2);
+}
+
+.flip-phone-top {
+  top: 0;
+  height: 78px;
+  border-radius: 28px 28px 10px 10px;
+  z-index: 3;
+}
+
+.flip-phone-top::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  top: 16px;
+  bottom: 10px;
+  border-radius: 12px;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.26) 10%, transparent 35%, rgba(255, 255, 255, 0.2) 60%, transparent 72%),
+    linear-gradient(180deg, #88d6ea 0%, #75c5e2 100%);
+  border: 2px solid rgba(80, 184, 220, 0.55);
+}
+
+.flip-phone-time {
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  top: 16px;
+  bottom: 10px;
+  z-index: 1;
+  color: #fbe9f2;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flip-phone-top::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  width: 18px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(228, 109, 170, 0.7);
+  transform: translateX(-50%);
+}
+
+.flip-phone-bottom {
+  bottom: 0;
+  height: 96px;
+  border-radius: 10px 10px 28px 28px;
+  z-index: 1;
+}
+
+.flip-phone-bottom::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 8px;
+  height: 20px;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 50% 50%, #ffd8ec 0 4px, rgba(236, 109, 171, 0.5) 4px 7px, transparent 7px),
+    linear-gradient(180deg, #f7b4da 0%, #f0a0cf 100%);
+  border: 2px solid rgba(228, 96, 158, 0.55);
+}
+
+.flip-phone-bottom::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 32px;
+  bottom: 6px;
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 16% 12%, #f7a1cd 0 4px, rgba(230, 105, 162, 0.72) 4px 6px, transparent 6px),
+    radial-gradient(circle at 50% 12%, #f7a1cd 0 4px, rgba(230, 105, 162, 0.72) 4px 6px, transparent 6px),
+    radial-gradient(circle at 84% 12%, #f7a1cd 0 4px, rgba(230, 105, 162, 0.72) 4px 6px, transparent 6px),
+    radial-gradient(circle at 16% 36%, #f7a1cd 0 4px, rgba(230, 105, 162, 0.72) 4px 6px, transparent 6px),
+    radial-gradient(circle at 50% 36%, #f7a1cd 0 4px, rgba(230, 105, 162, 0.72) 4px 6px, transparent 6px),
+    radial-gradient(circle at 84% 36%, #f7a1cd 0 4px, rgba(230, 105, 162, 0.72) 4px 6px, transparent 6px),
+    radial-gradient(circle at 16% 60%, #f7a1cd 0 4px, rgba(230, 105, 162, 0.72) 4px 6px, transparent 6px),
+    radial-gradient(circle at 50% 60%, #f7a1cd 0 4px, rgba(230, 105, 162, 0.72) 4px 6px, transparent 6px),
+    radial-gradient(circle at 84% 60%, #f7a1cd 0 4px, rgba(230, 105, 162, 0.72) 4px 6px, transparent 6px),
+    radial-gradient(circle at 16% 84%, #f7a1cd 0 4px, rgba(230, 105, 162, 0.72) 4px 6px, transparent 6px),
+    radial-gradient(circle at 50% 84%, #f7a1cd 0 4px, rgba(230, 105, 162, 0.72) 4px 6px, transparent 6px),
+    radial-gradient(circle at 84% 84%, #f7a1cd 0 4px, rgba(230, 105, 162, 0.72) 4px 6px, transparent 6px);
+}
+
+.flip-phone-bubble {
+  position: absolute;
+  left: -56px;
+  top: 26px;
+  padding: 6px 11px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 2px solid rgba(255, 107, 157, 0.5);
+  color: var(--accent-pink-dark);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0;
+  transform: translateY(6px) scale(0.92);
+  transition: opacity 180ms ease, transform 220ms ease;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.flip-phone-bubble::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  bottom: 14px;
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border-right: 2px solid rgba(255, 107, 157, 0.5);
+  border-bottom: 2px solid rgba(255, 107, 157, 0.5);
+  transform: rotate(-45deg);
+}
+
+.flip-phone-star {
+  position: absolute;
+  color: var(--accent-pink);
+  font-size: 0.72rem;
+  line-height: 1;
+  opacity: 0;
+  transform: scale(0.6) translateY(4px);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.flip-phone-star-a {
+  left: -20px;
+  top: 8px;
+}
+
+.flip-phone-star-b {
+  left: -6px;
+  top: 22px;
+  font-size: 0.6rem;
+}
+
+.flip-phone-star-c {
+  left: -10px;
+  top: -2px;
+  font-size: 0.52rem;
+}
+
+.flip-phone:hover .flip-phone-bubble,
+.footer-panel:hover .flip-phone-bubble {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.flip-phone:hover .flip-phone-star,
+.footer-panel:hover .flip-phone-star {
+  opacity: 1;
+  animation: flip-star-pop 460ms ease forwards;
+}
+
+.flip-phone:hover .flip-phone-star-b,
+.footer-panel:hover .flip-phone-star-b {
+  animation-delay: 70ms;
+}
+
+.flip-phone:hover .flip-phone-star-c,
+.footer-panel:hover .flip-phone-star-c {
+  animation-delay: 120ms;
+}
+
+@keyframes flip-star-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(4px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.12) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* About page styles */
@@ -1228,6 +1462,31 @@ h1 {
   .magazine-name {
     gap: 0.2rem;
     font-size: 2.25rem;
+  }
+
+  .flip-phone {
+    left: 78px;
+    bottom: 10px;
+    width: 58px;
+    height: 146px;
+  }
+
+  .flip-phone::after {
+    top: 56px;
+  }
+
+  .flip-phone-top,
+  .flip-phone-bottom {
+    width: 58px;
+  }
+
+  .flip-phone-top {
+    top: 0;
+    height: 62px;
+  }
+
+  .flip-phone-bottom {
+    height: 84px;
   }
 }
 

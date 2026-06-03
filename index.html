@@ -433,6 +433,14 @@
     <section class="footer-panel reveal">
       <p>Let’s make something beautiful and useful together.</p>
       <a class="button button-primary" href="contact.html">Say hello</a>
+      <div class="flip-phone" aria-hidden="true">
+        <div class="flip-phone-bubble">Hello</div>
+        <span class="flip-phone-star flip-phone-star-a">★</span>
+        <span class="flip-phone-star flip-phone-star-b">★</span>
+        <span class="flip-phone-star flip-phone-star-c">★</span>
+        <div class="flip-phone-top"><span id="flipPhoneTime" class="flip-phone-time">12:12</span></div>
+        <div class="flip-phone-bottom"></div>
+      </div>
     </section>
   </main>
 
@@ -463,6 +471,7 @@
   const waitBigThunderEl = document.getElementById('waitBigThunder');
   const rideWaitsNoteEl = document.getElementById('rideWaitsNote');
   const monorailSoundButtonEl = document.getElementById('monorailSoundButton');
+  const flipPhoneTimeEl = document.getElementById('flipPhoneTime');
 
   const monorailAudioStartSeconds = 4;
   const monorailAudioEndSeconds = 10;
@@ -543,6 +552,18 @@
   if (monorailSoundButtonEl) {
     monorailSoundButtonEl.addEventListener('click', playMonorailClip);
   }
+
+  function updateFlipPhoneTime() {
+    if (!flipPhoneTimeEl) return;
+    const now = new Date();
+    flipPhoneTimeEl.textContent = now.toLocaleTimeString([], {
+      hour: 'numeric',
+      minute: '2-digit'
+    });
+  }
+
+  updateFlipPhoneTime();
+  setInterval(updateFlipPhoneTime, 30000);
 
   function pinkWeatherIcon(iconName) {
     const stroke = '#ff6b9d';
