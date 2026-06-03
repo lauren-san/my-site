@@ -6,7 +6,7 @@
   <title>Work | Lauren, Designer</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body class="work-page">
   <nav class="navbar">
     <div class="navbar-container">
       <a href="index.html" class="navbar-logo">Lauren</a>
@@ -103,6 +103,14 @@
       <h2>Want to work together?</h2>
       <p>Let's discuss how I can help bring your vision to life.</p>
       <a class="button button-primary" href="contact.html">Start a conversation</a>
+      <div class="flip-phone" aria-hidden="true">
+        <div class="flip-phone-bubble">Hello</div>
+        <span class="flip-phone-star flip-phone-star-a">★</span>
+        <span class="flip-phone-star flip-phone-star-b">★</span>
+        <span class="flip-phone-star flip-phone-star-c">★</span>
+        <div class="flip-phone-top"><span class="flip-phone-time">12:12</span></div>
+        <div class="flip-phone-bottom"></div>
+      </div>
     </section>
   </main>
 
@@ -114,6 +122,23 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const flipPhoneTimeEls = document.querySelectorAll('.flip-phone-time');
+
+  function updateFlipPhoneTimes() {
+    if (!flipPhoneTimeEls.length) return;
+    const now = new Date();
+    const timeText = now.toLocaleTimeString([], {
+      hour: 'numeric',
+      minute: '2-digit'
+    });
+    flipPhoneTimeEls.forEach((el) => {
+      el.textContent = timeText;
+    });
+  }
+
+  updateFlipPhoneTimes();
+  setInterval(updateFlipPhoneTimes, 30000);
 </script>
 </body>
 </html>
