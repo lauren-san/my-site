@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lauren | Designer</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="home-page">
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-logo">Lauren</a>
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="site-shell">
+    <section class="hero reveal">
+      <div class="hero-copy">
+        <div class="name-section">
+          <div class="photo-wrap">
+            <img src="../assets/images/profile.jpg" alt="Lauren Sancya" class="profile-photo">
+            <span class="star-sticker star-1" aria-hidden="true">★</span>
+            <span class="star-sticker star-2" aria-hidden="true">★</span>
+            <span class="star-sticker star-3" aria-hidden="true">★</span>
+            <span class="star-sticker star-4" aria-hidden="true">★</span>
+          </div>
+          <div class="name-copy">
+            <p class="eyebrow">Hi, I'm</p>
+            <h1 class="magazine-name" aria-label="Lauren Sancya">
+              <span aria-hidden="true">L</span><span aria-hidden="true">a</span><span aria-hidden="true">u</span><span aria-hidden="true">r</span><span aria-hidden="true">e</span><span aria-hidden="true">n</span><span class="letter-gap" aria-hidden="true"></span><span aria-hidden="true">S</span><span aria-hidden="true">a</span><span aria-hidden="true">n</span><span aria-hidden="true">c</span><span aria-hidden="true">y</span><span aria-hidden="true">a</span>
+            </h1>
+          </div>
+        </div>
+        <p class="intro">
+          I build thoughtful, polished experiences with clarity, color, and
+          intentional detail. My work blends strategy, simplicity, and playful
+          refinement.
+        </p>
+        <div class="actions">
+          <a class="button button-primary" href="#about">About me</a>
+          <a class="button button-secondary" href="#work">Work</a>
+        </div>
+        <div class="weather-duo">
+          <div class="weather-card reveal reveal-delay-2" aria-live="polite">
+            <p class="detail-label">Local weather</p>
+            <div class="weather-row">
+              <span id="weatherEmoji" class="weather-emoji" aria-hidden="true"></span>
+              <div>
+                <p id="weatherLocation" class="weather-location">Near you</p>
+                <p id="weatherTemp" class="weather-temp">Loading weather...</p>
+                <p id="weatherText" class="weather-text">Checking your location</p>
+              </div>
+            </div>
+          </div>
+          <div class="weather-card reveal reveal-delay-3" aria-live="polite">
+            <p class="detail-label">Walt Disney World weather</p>
+            <div class="weather-row">
+              <span id="disneyWeatherEmoji" class="weather-emoji" aria-hidden="true"></span>
+              <div>
+                <p id="disneyWeatherLocation" class="weather-location">Lake Buena Vista, FL</p>
+                <p id="disneyWeatherTemp" class="weather-temp">Loading weather...</p>
+                <p id="disneyWeatherText" class="weather-text">Fetching current conditions</p>
+              </div>
+            </div>
+          </div>
+          <div class="weather-card ride-waits-card reveal reveal-delay-3" aria-live="polite">
+            <p class="detail-label">Wait times at my Favorite Walt Disney World Rides</p>
+            <ul class="ride-waits-list">
+              <li>
+                <span class="ride-name">Space Mountain</span>
+                <span id="waitSpaceMountain" class="ride-wait">Loading...</span>
+              </li>
+              <li>
+                <span class="ride-name">Toy Story Mania!</span>
+                <span id="waitToyStoryMania" class="ride-wait">Loading...</span>
+              </li>
+              <li>
+                <span class="ride-name">Big Thunder Mountain Railroad</span>
+                <span id="waitBigThunder" class="ride-wait">Loading...</span>
+              </li>
+            </ul>
+            <p id="rideWaitsNote" class="ride-waits-note">Fetching live wait times...</p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="detail-card">
+          <p class="detail-label">I design for</p>
+          <ul>
+            <li>Brand moments</li>
+            <li>Digital products</li>
+            <li>Visual systems</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="monorail-wrap reveal" aria-hidden="true">
+      <div class="monorail-announcement" aria-hidden="false">
+        <p class="monorail-announcement-text">Please stand clear of the doors. Por favor, mantenganse alejados de las puertas!</p>
+        <button type="button" id="monorailSoundButton" class="monorail-sound-button">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M3 10v4h4l5 4V6L7 10H3zm13.5 2a4.5 4.5 0 0 0-2.5-4.03v8.06A4.5 4.5 0 0 0 16.5 12zm0-9.5v2.06A9 9 0 0 1 22 12a9 9 0 0 1-5.5 8.31v2.06A11 11 0 0 0 24 12 11 11 0 0 0 16.5 2.5z"></path>
+          </svg>
+          <span>Play Door Chime</span>
+        </button>
+        <div id="monorailPlayer" class="monorail-player" aria-hidden="true"></div>
+      </div>
+      <div class="monorail-sky">
+        <div class="monorail-track"></div>
+        <div class="monorail-pillars"></div>
+        <div class="monorail-train">
+          <img src="../assets/images/DisneyMonorail.svg" alt="" class="monorail-train-img" aria-hidden="true">
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section-panel reveal">
+      <div>
+        <h2>About me</h2>
+        <p>
+          I’m a designer who loves turning ideas into calm, elegant, and
+          expressive experiences. I focus on clean typography, meaningful
+          visuals, and human-centered details.
+        </p>
+      </div>
+      <div class="bio-grid">
+        <div class="bio-card reveal reveal-delay-1">
+          <h3>What I do</h3>
+          <p>Design systems, brand direction, web layout, and visual storytelling.</p>
+        </div>
+        <div class="bio-card reveal reveal-delay-2">
+          <h3>How I think</h3>
+          <p>With curiosity, clarity, and a love for refined simplicity.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="section-panel section-alt reveal">
+      <div>
+        <h2>Selected work</h2>
+        <p>
+          Projects that bring calm structure, strong visual rhythm, and polished
+          user-first design.
+        </p>
+      </div>
+      <div class="project-grid">
+        <article class="project-card reveal reveal-delay-1">
+          <h3>Brand refresh</h3>
+          <p>Modern identity and messaging for a growing creative business.</p>
+        </article>
+        <article class="project-card reveal reveal-delay-2">
+          <h3>Website concept</h3>
+          <p>Clear, elegant interactive design with strong visual storytelling.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="footer-panel reveal">
+      <p>Let’s make something beautiful and useful together.</p>
+      <a class="button button-primary" href="contact.html">Say hello</a>
+      <div class="flip-phone" aria-hidden="true">
+        <div class="flip-phone-bubble">Hello</div>
+        <span class="flip-phone-star flip-phone-star-a">★</span>
+        <span class="flip-phone-star flip-phone-star-b">★</span>
+        <span class="flip-phone-star flip-phone-star-c">★</span>
+        <div class="flip-phone-top"><span id="flipPhoneTime" class="flip-phone-time">12:12</span></div>
+        <div class="flip-phone-bottom"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Lauren. All rights reserved.</p>
+  </footer>
+
+  <script src="../js/app.js"></script>
+</body>
+</html>
