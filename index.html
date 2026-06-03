@@ -15,6 +15,25 @@
       box-shadow: 0 8px 20px rgba(162, 107, 137, 0.14);
     }
 
+    .weather-duo {
+      margin-top: 16px;
+      display: flex;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .weather-duo .weather-card {
+      margin-top: 0;
+      flex: 1;
+      min-width: 0;
+    }
+
+    @media (max-width: 760px) {
+      .weather-duo {
+        flex-direction: column;
+      }
+    }
+
     .weather-row {
       display: flex;
       align-items: center;
@@ -88,6 +107,30 @@
           <a class="button button-primary" href="#about">About me</a>
           <a class="button button-secondary" href="#work">Work</a>
         </div>
+        <div class="weather-duo">
+          <div class="weather-card reveal reveal-delay-2" aria-live="polite">
+            <p class="detail-label">Local weather</p>
+            <div class="weather-row">
+              <span id="weatherEmoji" class="weather-emoji" aria-hidden="true">⏳</span>
+              <div>
+                <p id="weatherLocation" class="weather-location">Near you</p>
+                <p id="weatherTemp" class="weather-temp">Loading weather...</p>
+                <p id="weatherText" class="weather-text">Checking your location</p>
+              </div>
+            </div>
+          </div>
+          <div class="weather-card reveal reveal-delay-3" aria-live="polite">
+            <p class="detail-label">Walt Disney World weather</p>
+            <div class="weather-row">
+              <span id="disneyWeatherEmoji" class="weather-emoji" aria-hidden="true">🏰</span>
+              <div>
+                <p id="disneyWeatherLocation" class="weather-location">Lake Buena Vista, FL</p>
+                <p id="disneyWeatherTemp" class="weather-temp">Loading weather...</p>
+                <p id="disneyWeatherText" class="weather-text">Fetching current conditions</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="hero-card">
         <div class="detail-card">
@@ -97,28 +140,6 @@
             <li>Digital products</li>
             <li>Visual systems</li>
           </ul>
-        </div>
-        <div class="weather-card reveal reveal-delay-2" aria-live="polite">
-          <p class="detail-label">Local weather</p>
-          <div class="weather-row">
-            <span id="weatherEmoji" class="weather-emoji" aria-hidden="true">⏳</span>
-            <div>
-              <p id="weatherLocation" class="weather-location">Near you</p>
-              <p id="weatherTemp" class="weather-temp">Loading weather...</p>
-              <p id="weatherText" class="weather-text">Checking your location</p>
-            </div>
-          </div>
-        </div>
-        <div class="weather-card reveal reveal-delay-3" aria-live="polite">
-          <p class="detail-label">Walt Disney World weather</p>
-          <div class="weather-row">
-            <span id="disneyWeatherEmoji" class="weather-emoji" aria-hidden="true">🏰</span>
-            <div>
-              <p id="disneyWeatherLocation" class="weather-location">Lake Buena Vista, FL</p>
-              <p id="disneyWeatherTemp" class="weather-temp">Loading weather...</p>
-              <p id="disneyWeatherText" class="weather-text">Fetching current conditions</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
