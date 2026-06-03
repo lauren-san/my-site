@@ -702,18 +702,6 @@ h1 {
   position: relative;
 }
 
-.section-panel h2::before {
-  content: '';
-  position: absolute;
-  left: -20px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  background: var(--accent-pink);
-  border-radius: 50%;
-}
-
 .section-panel p {
   margin: 0;
   max-width: 760px;
