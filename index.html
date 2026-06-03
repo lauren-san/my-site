@@ -20,11 +20,12 @@
       display: flex;
       gap: 14px;
       align-items: stretch;
+      flex-wrap: wrap;
     }
 
     .weather-duo .weather-card {
       margin-top: 0;
-      flex: 1;
+      flex: 1 1 240px;
       min-width: 0;
     }
 
@@ -75,6 +76,44 @@
       color: #ff6b9d;
       font-weight: 700;
       line-height: 1.1;
+    }
+
+    .ride-waits-list {
+      list-style: none;
+      margin: 10px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .ride-waits-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(255, 107, 157, 0.2);
+    }
+
+    .ride-name {
+      font-size: 0.9rem;
+      color: #6d5b5b;
+      font-weight: 600;
+    }
+
+    .ride-wait {
+      font-size: 0.95rem;
+      color: #ff6b9d;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .ride-waits-note {
+      margin: 10px 0 0;
+      font-size: 0.8rem;
+      color: #8b7a7a;
     }
   </style>
 </head>
@@ -139,6 +178,24 @@
                 <p id="disneyWeatherText" class="weather-text">Fetching current conditions</p>
               </div>
             </div>
+          </div>
+          <div class="weather-card ride-waits-card reveal reveal-delay-3" aria-live="polite">
+            <p class="detail-label">Wait times at my Favorite Walt Disney World Rides</p>
+            <ul class="ride-waits-list">
+              <li>
+                <span class="ride-name">Space Mountain</span>
+                <span id="waitSpaceMountain" class="ride-wait">Loading...</span>
+              </li>
+              <li>
+                <span class="ride-name">Toy Story Mania!</span>
+                <span id="waitToyStoryMania" class="ride-wait">Loading...</span>
+              </li>
+              <li>
+                <span class="ride-name">Big Thunder Mountain Railroad</span>
+                <span id="waitBigThunder" class="ride-wait">Loading...</span>
+              </li>
+            </ul>
+            <p id="rideWaitsNote" class="ride-waits-note">Fetching live wait times...</p>
           </div>
         </div>
       </div>
@@ -223,6 +280,10 @@
   const disneyWeatherTempEl = document.getElementById('disneyWeatherTemp');
   const disneyWeatherTextEl = document.getElementById('disneyWeatherText');
   const disneyWeatherLocationEl = document.getElementById('disneyWeatherLocation');
+  const waitSpaceMountainEl = document.getElementById('waitSpaceMountain');
+  const waitToyStoryManiaEl = document.getElementById('waitToyStoryMania');
+  const waitBigThunderEl = document.getElementById('waitBigThunder');
+  const rideWaitsNoteEl = document.getElementById('rideWaitsNote');
 
   function pinkWeatherIcon(iconName) {
     const stroke = '#ff6b9d';
@@ -432,6 +493,57 @@
     });
   }
 
+  function waitTextFromRideLiveData(data) {
+    const live = data && data.liveData && data.liveData[0];
+    if (!live) return 'Unavailable';
+
+    const standbyWait = live.queue && live.queue.STANDBY && live.queue.STANDBY.waitTime;
+    if (typeof standbyWait === 'number') {
+      return `${standbyWait} min`;
+    }
+
+    if (live.status === 'DOWN') return 'Down';
+    if (live.status === 'CLOSED') return 'Closed';
+    return 'Unavailable';
+  }
+
+  async function loadDisneyRideWaits() {
+    const rideConfigs = [
+      { id: 'b2260923-9315-40fd-9c6b-44dd811dbe64', element: waitSpaceMountainEl },
+      { id: '20b5daa8-e1ea-436f-830c-2d7d18d929b5', element: waitToyStoryManiaEl },
+      { id: 'de3309ca-97d5-4211-bffe-739fed47e92f', element: waitBigThunderEl }
+    ];
+
+    rideWaitsNoteEl.textContent = 'Fetching live wait times...';
+
+    try {
+      const waitResults = await Promise.all(
+        rideConfigs.map(async (ride) => {
+          const url = `https://api.themeparks.wiki/v1/entity/${ride.id}/live`;
+          const response = await fetch(url);
+          if (!response.ok) throw new Error('Ride wait request failed');
+          const data = await response.json();
+          return {
+            element: ride.element,
+            waitText: waitTextFromRideLiveData(data)
+          };
+        })
+      );
+
+      waitResults.forEach((item) => {
+        item.element.textContent = item.waitText;
+      });
+
+      const updatedTime = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      rideWaitsNoteEl.textContent = `Updated ${updatedTime}`;
+    } catch (error) {
+      rideConfigs.forEach((ride) => {
+        ride.element.textContent = 'Unavailable';
+      });
+      rideWaitsNoteEl.textContent = 'Wait times unavailable right now';
+    }
+  }
+
   async function loadApproximateWeatherFromTimezone() {
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
@@ -487,6 +599,7 @@
 
   requestWeatherFromBrowserLocation();
   loadDisneyWeather();
+  loadDisneyRideWaits();
 </script>
 </body>
 </html>
