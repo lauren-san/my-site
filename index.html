@@ -230,46 +230,52 @@
     });
   }
 
+  async function loadApproximateWeatherFromTimezone() {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      const guessedCity = (tz.split('/').pop() || '').replace(/_/g, ' ');
+      if (!guessedCity) throw new Error('No timezone city available');
+
+      const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(guessedCity)}&count=1&language=en&format=json`;
+      const geoResponse = await fetch(geoUrl);
+      if (!geoResponse.ok) throw new Error('Geocoding failed');
+
+      const geoData = await geoResponse.json();
+      const place = geoData.results && geoData.results[0];
+      if (!place) throw new Error('No geocoding result');
+
+      await loadWeather(place.latitude, place.longitude);
+    } catch (error) {
+      setWeatherStatus('⚠️', 'Weather unavailable', 'Please try again in a moment', 'Location unavailable');
+    }
+  }
+
   async function requestWeatherFromBrowserLocation() {
     if (!navigator.geolocation) {
-      setWeatherStatus('📍', 'Enable location to see your weather', 'Your browser does not support geolocation', 'Location not available');
+      loadApproximateWeatherFromTimezone();
       return;
     }
 
     if (!window.isSecureContext) {
-      setWeatherStatus('🔒', 'Open site on localhost or HTTPS', 'Location only works in a secure context', 'Secure context required');
+      loadApproximateWeatherFromTimezone();
       return;
     }
 
     try {
       const firstTry = await getBrowserPosition({
         enableHighAccuracy: false,
-        timeout: 15000,
-        maximumAge: 300000
+        timeout: 4500,
+        maximumAge: 900000
       });
       loadWeather(firstTry.coords.latitude, firstTry.coords.longitude);
       return;
     } catch (error) {
-      if (error && error.code === 3) {
-        try {
-          const retry = await getBrowserPosition({
-            enableHighAccuracy: false,
-            timeout: 30000,
-            maximumAge: 900000
-          });
-          loadWeather(retry.coords.latitude, retry.coords.longitude);
-          return;
-        } catch (retryError) {
-          console.error('Geolocation retry failed:', retryError);
-        }
-      }
-
       if (error && error.code === 1) {
-        setWeatherStatus('📍', 'Enable location to see your weather', 'Allow location access to show local weather', 'Location permission denied');
+        loadApproximateWeatherFromTimezone();
       } else if (error && error.code === 2) {
-        setWeatherStatus('🛰️', 'Unable to detect location', 'Try again in a few moments', 'Location signal unavailable');
+        loadApproximateWeatherFromTimezone();
       } else {
-        setWeatherStatus('⏱️', 'Location taking too long', 'Please refresh to try again', 'Location request timed out');
+        loadApproximateWeatherFromTimezone();
       }
     }
   }
